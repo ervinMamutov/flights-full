@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use(userRouters);
-app.use(userRouters);
+app.use(flightRouters);
 
 app.use((err, req, res, next) => {
   console.error(err);
