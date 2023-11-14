@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 
 import logger from './middleware/logger.js';
 import userRouters from './routes/user.js';
+import flightRouters from './routes/flight.js';
 
 dotenv.config();
 const PORT = process.env.PORT || 3005;
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+app.use(userRouters);
 app.use(userRouters);
 
 app.use((err, req, res, next) => {
