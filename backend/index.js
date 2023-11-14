@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
 
 import logger from './middleware/logger.js';
+import userRouters from './routes/user.js';
 
 dotenv.config();
 const PORT = process.env.PORT || 3005;
@@ -22,6 +23,8 @@ app.use(logger);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+app.use(userRouters);
 
 app.use((err, req, res, next) => {
   console.error(err);
