@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import Flight from '../models/flight.js';
 
 const flightControllers = {
@@ -157,6 +158,37 @@ const flightControllers = {
       return res.status(500).json({
         success: false,
         err: err.message || 'Flight information was not updated'
+      });
+    }
+  },
+  deleteFlight: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      if (!mongoose.isValidObjectId(id)) {
+        return res.status(400).json({
+          success: false,
+          message:
+            'Invalid ObjectId format for flight ID. Please enter a valid ID'
+        });
+      }
+
+      const result = await Flight.deleteOne({ _id: id });
+      if (result.deletedCount > 0) {
+        return res.status(200).json({
+          success: true,
+          message: `Flight ${id} has been successfully deleted`
+        });
+      } else {
+        return res.status(404).json({
+          success: false,
+          message: `Flight ${id} not found`
+        });
+      }
+    } catch (err) {
+      return res.status(500).json({
+        success: false,
+        err: err.message || `Flight ${id} not found`
       });
     }
   }
