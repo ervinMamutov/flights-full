@@ -8,5 +8,6 @@ import verifyToken from '../middleware/verifyToken.js';
 // routes
 router.get('/', flightControllers.getFlights);
 router.get('/:id', flightControllers.getFlight);
+router.post('/add-flight', flightControllers.addFlight);
 
 export default router;

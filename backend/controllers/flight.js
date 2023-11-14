@@ -43,6 +43,61 @@ const flightControllers = {
         err: err.message
       });
     }
+  },
+  addFlight: async (req, res) => {
+    try {
+      const {
+        flight_number,
+        airline,
+        departure_city,
+        departure_airport,
+        arrival_city,
+        arrival_airport,
+        departure_time,
+        arrival_time,
+        duration,
+        price
+      } = req.body;
+
+      const newFlight = {
+        flight_number,
+        airline: airline,
+        departure_city,
+        departure_airport,
+        arrival_city,
+        arrival_airport,
+        departure_time,
+        arrival_time,
+        duration,
+        price
+      };
+
+      if (
+        !flight_number ||
+        !airline ||
+        !departure_city ||
+        !departure_airport ||
+        !arrival_airport ||
+        !arrival_city
+      ) {
+        return res.status(401).json({
+          success: false,
+          message: 'Please fill in all fields'
+        });
+      } else {
+        const result = await Flight.create(newFlight);
+        return res.status(201).json({
+          success: true,
+          message: `New Flight number ${flight_number} successfully created`,
+          flight: result
+        });
+      }
+    } catch (err) {
+      return res.status(500).json({
+        success: false,
+        err: err.message
+      });
+    }
   }
 };
 
