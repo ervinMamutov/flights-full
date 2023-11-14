@@ -9,5 +9,6 @@ import verifyToken from '../middleware/verifyToken.js';
 router.get('/', flightControllers.getFlights);
 router.get('/:id', flightControllers.getFlight);
 router.post('/add-flight', flightControllers.addFlight);
+router.put('/update/:id', flightControllers.updateFlight);
 
 export default router;
