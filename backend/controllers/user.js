@@ -49,7 +49,43 @@ const userControllers = {
       });
     }
   },
-  login: async (req, res) => {},
+  login: async (req, res) => {
+    try {
+      const { email, password } = req.body;
+      const userExist = await User.findOne({ email });
+      if (userExist) {
+        const isValid = await bcrypt.compare(password, userExist.password);
+
+        if (isValid) {
+          const token = jwt.sign(
+            { userExist: userExist },
+            process.env.TOKEN_ACCESS_SECRET
+          );
+
+          res.cookie('_id', userExist._id, {
+            secure: true,
+            sameSite: false
+          });
+
+          res.cookie('token', token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: false
+          });
+          res.status(200).json({
+            success: true,
+            token,
+            id: userExist._id
+          });
+        }
+      }
+    } catch (err) {
+      return res.status(500).json({
+        success: false,
+        err: err.message
+      });
+    }
+  },
   logout: async (req, res) => {}
 };
 
