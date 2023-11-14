@@ -86,7 +86,15 @@ const userControllers = {
       });
     }
   },
-  logout: async (req, res) => {}
+  logout: (req, res) => {
+    res.clearCookie('token');
+    res.clearCookie('id');
+
+    return res.status(200).json({
+      success: true,
+      message: `User session closed successfully`
+    });
+  }
 };
 
 export default userControllers;
