@@ -29,7 +29,7 @@ Flight.propTypes = {
     departure_time: PropTypes.string.isRequired,
     arrival_time: PropTypes.string.isRequired,
     duration: PropTypes.string.isRequired,
-    price: PropTypes.string.isRequired
+    price: PropTypes.number.isRequired
   })
 };
 
