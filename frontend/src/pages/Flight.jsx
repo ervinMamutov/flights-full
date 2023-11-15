@@ -2,7 +2,6 @@ import './Flight.css';
 import PropTypes from 'prop-types';
 
 const Flight = ({ flight }) => {
-  console.log(flight);
   return (
     <div className="flight-box">
       <h3>{flight.flight_number}</h3>
