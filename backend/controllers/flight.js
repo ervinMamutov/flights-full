@@ -62,7 +62,7 @@ const flightControllers = {
 
       const newFlight = {
         flight_number,
-        airline: airline,
+        airline,
         departure_city,
         departure_airport,
         arrival_city,
